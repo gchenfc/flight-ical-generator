@@ -94,6 +94,15 @@
     }
   </style>
 </head>
+<script>
+  function reportHeight() {
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ type: 'flightToolHeight', height }, '*');
+  }
+
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+</script>
 <body>
   <h1>Flight Calendar Generator</h1>
 
