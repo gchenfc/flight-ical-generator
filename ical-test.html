@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>iCal Test Page</title>
+</head>
+<body>
+  <h1>iCalendar Generator Test</h1>
+
+  <label>
+    Flight Code (e.g. BF714):<br>
+    <input id="flightCode" value="BF714">
+  </label><br><br>
+
+  <label>
+    Departure Airport (IATA):<br>
+    <input id="departureIata" value="ORY">
+  </label><br><br>
+
+  <label>
+    Departure Time (ISO 8601 with timezone):<br>
+    <input id="departureTime" value="2025-07-19T11:30:00+02:00">
+  </label><br><br>
+
+  <label>
+    Arrival Airport (IATA):<br>
+    <input id="arrivalIata" value="SFO">
+  </label><br><br>
+
+  <label>
+    Arrival Time (ISO 8601 with timezone):<br>
+    <input id="arrivalTime" value="2025-07-19T13:50:00-07:00">
+  </label><br><br>
+
+  <label>
+    Operating Carrier Code (optional):<br>
+    <input id="operatingCarrierCode" value="TX">
+  </label><br><br>
+
+  <label>
+    Confirmation Number (optional):<br>
+    <input id="confirmation" placeholder="e.g. ABC123">
+  </label><br><br>
+
+  <label>
+    Additional Notes (optional):<br>
+    <input id="notes" placeholder="e.g. Check-in 2h before">
+  </label><br><br>
+
+  <button onclick="generate()">Generate .ics</button>
+
+  <div id="output" style="margin-top: 1em;"></div>
+
+  <script src="./ical.js"></script>
+  <script>
+    function generate() {
+      const flightCode = document.getElementById('flightCode').value.trim().toUpperCase();
+      const match = flightCode.match(/^([A-Z]+)(\d{1,4})$/);
+      if (!match) {
+        alert("Invalid flight code format. Use format like BF714.");
+        return;
+      }
+
+      const carrierCode = match[1];
+      const flightNumber = match[2];
+      const departureIata = document.getElementById('departureIata').value;
+      const departureTime = document.getElementById('departureTime').value;
+      const arrivalIata = document.getElementById('arrivalIata').value;
+      const arrivalTime = document.getElementById('arrivalTime').value;
+      const operatingCarrierCode = document.getElementById('operatingCarrierCode').value;
+      const confirmation = document.getElementById('confirmation').value;
+      const notes = document.getElementById('notes').value;
+
+      const ics = ICalBuilder.buildFlightICS({
+        flightDesignator: {
+          carrierCode,
+          flightNumber
+        },
+        flightPoints: [
+          {
+            iataCode: departureIata,
+            departure: {
+              timings: [{ value: departureTime }]
+            }
+          },
+          {
+            iataCode: arrivalIata,
+            arrival: {
+              timings: [{ value: arrivalTime }]
+            }
+          }
+        ],
+        segments: [
+          {
+            partnership: {
+              operatingFlight: {
+                carrierCode: operatingCarrierCode
+              }
+            }
+          }
+        ],
+        legs: [
+          {
+            boardPointIataCode: departureIata,
+            offPointIataCode: arrivalIata,
+            scheduledLegDuration: "PT11H20M", // optional
+            aircraftEquipment: { aircraftType: "359" } // optional
+          }
+        ]
+      }, {
+        confirmation,
+        notes
+      });
+
+      const blob = new Blob([ics], { type: 'text/calendar' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${carrierCode}${flightNumber}.ics`;
+      link.textContent = 'Download .ics file';
+
+      const output = document.getElementById('output');
+      output.innerHTML = '';
+      output.appendChild(link);
+    }
+  </script>
+</body>
+</html>

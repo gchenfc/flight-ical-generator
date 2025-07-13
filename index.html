@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Flight iCal Tool</title>
+</head>
+<body>
+  <h1>Flight Calendar Generator</h1>
+
+  <label>
+    Flight Code (e.g. BF714):<br>
+    <input id="flightCode" value="BF714">
+  </label><br><br>
+
+  <label>
+    Date:<br>
+    <input id="date" type="date" value="2025-07-19">
+  </label><br><br>
+
+  <label>
+    Confirmation Number (optional):<br>
+    <input id="confirmation" placeholder="e.g. ABC123">
+  </label><br><br>
+
+  <label>
+    Additional Info (optional):<br>
+    <input id="notes" placeholder="e.g. Seat 24A">
+  </label><br><br>
+
+  <button onclick="runFlightLookup()">Generate .ics</button>
+
+  <div id="output" style="margin-top: 1em;"></div>
+
+  <script src="./flight-api.js"></script>
+  <script src="./ical.js"></script>
+  <script src="./main.js"></script>
+</body>
+</html>

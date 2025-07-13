@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Amadeus Flight Test</title>
+</head>
+<body>
+  <h1>Flight Lookup Test</h1>
+
+  <label>
+    Carrier Code:
+    <input id="carrierCode" value="UA" />
+  </label>
+  <label>
+    Flight Number:
+    <input id="flightNumber" value="123" />
+  </label>
+  <label>
+    Date:
+    <input id="date" type="date" value="2025-07-13" />
+  </label>
+  <button onclick="lookup()">Lookup</button>
+
+  <pre id="output"></pre>
+
+  <script src="./flight-api.js"></script>
+  <script>
+    async function lookup() {
+      const carrierCode = document.getElementById('carrierCode').value;
+      const flightNumber = document.getElementById('flightNumber').value;
+      const date = document.getElementById('date').value;
+      const output = document.getElementById('output');
+
+      try {
+        const data = await AmadeusAPI.getFlightSchedule({ carrierCode, flightNumber, date });
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        output.textContent = 'Error: ' + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
