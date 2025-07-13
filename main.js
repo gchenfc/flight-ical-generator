@@ -32,17 +32,12 @@ async function runFlightLookup() {
     const link = document.createElement('a');
     link.href = url;
     link.download = `${carrierCode}${flightNumber}_${date}.ics`;
-    link.textContent = 'Download .ics file';
+    document.body.appendChild(link);  // Required for Firefox
+    link.click();
+    link.remove();
 
     const outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = '';
-    outputDiv.appendChild(link);
-
-    const mailLink = document.createElement('a');
-    mailLink.href = `mailto:?subject=Flight ${carrierCode}${flightNumber} Calendar&body=Download your flight .ics file: ${url}`;
-    mailLink.textContent = 'Send via Email';
-    mailLink.style.marginLeft = '1em';
-    outputDiv.appendChild(mailLink);
+    outputDiv.innerHTML = '✅ Calendar event generated and downloaded.';
 
   } catch (err) {
     output.textContent = 'Error: ' + err.message;

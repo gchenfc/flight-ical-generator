@@ -1,35 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <title>Flight iCal Tool</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2285%22>✈️</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f9f9fb;
+      color: #222;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 400px;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 0.3rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #output {
+      margin-top: 2rem;
+      font-size: 1rem;
+      max-width: 600px;
+      word-wrap: break-word;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 1rem;
+      }
+
+      label {
+        font-size: 0.95rem;
+      }
+
+      input,
+      button {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>Flight Calendar Generator</h1>
 
   <label>
-    Flight Code (e.g. BF714):<br>
-    <input id="flightCode" value="BF714">
-  </label><br><br>
+    Flight Code (e.g. BF714):
+    <input id="flightCode" type="text" value="BF714">
+  </label>
 
   <label>
-    Date:<br>
+    Date:
     <input id="date" type="date" value="2025-07-19">
-  </label><br><br>
+  </label>
 
   <label>
-    Confirmation Number (optional):<br>
-    <input id="confirmation" placeholder="e.g. ABC123">
-  </label><br><br>
+    Confirmation Number (optional):
+    <input id="confirmation" type="text" placeholder="e.g. ABC123">
+  </label>
 
   <label>
-    Additional Info (optional):<br>
-    <input id="notes" placeholder="e.g. Seat 24A">
-  </label><br><br>
+    Additional Info (optional):
+    <input id="notes" type="text" placeholder="e.g. Seat 24A">
+  </label>
 
   <button onclick="runFlightLookup()">Generate .ics</button>
 
-  <div id="output" style="margin-top: 1em;"></div>
+  <div id="output"></div>
 
   <script src="./flight-api.js"></script>
   <script src="./ical.js"></script>
