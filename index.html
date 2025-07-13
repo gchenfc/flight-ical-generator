@@ -2,12 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Flight iCal Tool</title>
+  <title>✈️ Flight iCal Generator 📆</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Generate .ics calendar invites from a flight number and date. Just enter the info and download!">
+  <meta name="keywords" content="flight calendar, ical flight, online, ics flight tool, calendar invite from airline, amadeus api calendar">
+  <meta name="author" content="Gerry Chen">
+
+  <!-- Open Graph for link previews -->
+  <meta property="og:title" content="Flight iCal Generator ✈️">
+  <meta property="og:description" content="Generate a calendar event from your flight number and date. Free and browser-based.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gchenfc.github.io/flight-ical-generator/">
+  <meta property="og:image" content="https://gerry-chen.com/img/icon.png">
+  <meta property="og:site_name" content="Gerry Chen's Tools">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@gchenfc">
+  <meta name="twitter:creator" content="@gchenfc">
+  <meta name="twitter:title" content="Flight iCal Generator ✈️">
+  <meta name="twitter:description" content="Generate a calendar invite from your flight number. Free, fast, browser-only.">
+  <meta name="twitter:image" content="https://gerry-chen.com/img/icon.png">
+
+  <link rel="canonical" href="https://gchenfc.github.io/flight-ical-generator/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2285%22>✈️</text></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     * {
       box-sizing: border-box;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
     }
 
     body {
@@ -104,34 +141,41 @@
   window.addEventListener('resize', reportHeight);
 </script>
 <body>
-  <h1>Flight Calendar Generator</h1>
+  <main>
+    <h1>✈️ &nbsp; Flight iCal Generator &nbsp; 📆</h1>
 
-  <label>
-    Flight Code (e.g. BF714):
-    <input id="flightCode" type="text" value="BF714">
-  </label>
+    <label>
+      Flight Code (e.g. BF714):
+      <input id="flightCode" type="text" value="BF714">
+    </label>
 
-  <label>
-    Date:
-    <input id="date" type="date" value="2025-07-19">
-  </label>
+    <label>
+      Date:
+      <input id="date" type="date" value="2025-07-19">
+    </label>
 
-  <label>
-    Confirmation Number (optional):
-    <input id="confirmation" type="text" placeholder="e.g. ABC123">
-  </label>
+    <label>
+      Confirmation Number (optional):
+      <input id="confirmation" type="text" placeholder="e.g. ABC123">
+    </label>
 
-  <label>
-    Additional Info (optional):
-    <input id="notes" type="text" placeholder="e.g. Seat 24A">
-  </label>
+    <label>
+      Additional Info (optional):
+      <input id="notes" type="text" placeholder="e.g. Seat 24A">
+    </label>
 
-  <button onclick="runFlightLookup()">Generate .ics</button>
+    <button onclick="runFlightLookup()">Generate .ics</button>
 
-  <div id="output"></div>
+    <div id="output"></div>
 
-  <script src="./flight-api.js"></script>
-  <script src="./ical.js"></script>
-  <script src="./main.js"></script>
+    <script src="./flight-api.js"></script>
+    <script src="./ical.js"></script>
+    <script src="./main.js"></script>
+  </main>
+  <footer style="margin-top: 3em; font-size: 0.9em; text-align: center; color: #888;">
+    ✍️ Created by <a href="https://gerry-chen.com" target="_blank" rel="noopener">Gerry Chen</a> |
+    📅 Posted July 13, 2025 |
+    📖 <a href="https://gerry-chen.com/blog/2025-07-13_flight_ical_creator.html" target="_blank" rel="noopener">Read the blog post</a>
+  </footer>
 </body>
 </html>
